@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Court & Verifikasi Perkara - Pengadilan Negeri Surabaya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #044e29;
+            --primary-dark: #02331b;
+            --accent: #d4af37;
+            --bg-main: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Top Bar Mahkamah Agung */
+        .top-bar {
+            background-color: var(--primary-dark);
+            color: #cbd5e1;
+            font-size: 12px;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Header Utama */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 25px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .court-logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .header-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header-text p {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .badge-verified {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--accent);
+            color: #fef08a;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Esthetic Card */
+        .verification-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-header-banner {
+            background: #f1f5f9;
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-pill {
+            background: #dcfce7;
+            color: #166534;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 650;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-body {
+            padding: 35px 30px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Grid Detail Info */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 30px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-item.full-width {
+            grid-column: span 2;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 15px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .highlight-text {
+            color: var(--primary);
+        }
+
+        /* Timeline Verifikasi Detail Kecil */
+        .verification-trail {
+            border-left: 2px dashed var(--border);
+            margin-left: 10px;
+            padding-left: 25px;
+            margin-top: 30px;
+        }
+
+        .trail-step {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .trail-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .trail-dot {
+            position: absolute;
+            left: -32px;
+            top: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid #e6f4ea;
+        }
+
+        .trail-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .trail-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Watermark / Digital Stamp Section */
+        .digital-stamp {
+            background: #fafafa;
+            border: 1px dashed var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stamp-info h4 {
+            font-size: 13px;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .stamp-info p {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .qr-placeholder {
+            width: 60px;
+            height: 60px;
+            background: #333;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 50px;
+        }
+
+        @media (max-width: 650px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .info-item.full-width {
+                grid-column: span 1;
+            }
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .header-brand {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bar Informasi Resmi -->
+    <div class="top-bar">
+        <span>Direktorat Jenderal Badan Peradilan Negeri • Mahkamah Agung RI</span>
+        <span>Sistem Informasi Elektronik Pengadilan</span>
+    </div>
+
+    <!-- Header Estetik -->
+    <header>
+        <div class="header-brand">
+            <div class="court-logo">PA</div>
+            <div class="header-text">
+                <h1>Pengadilan Negeri Surabaya</h1>
+                <p>Jl. Arjuno No 16 - 18 Sawahan,Kec.Sawahan,Surabaya,Jawa Timur 60251 </p>
+            </div>
+        </div>
+        <div class="badge-verified">
+            <span>🛡️</span> Terverifikasi Resmi SIPP
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <div class="container">
+        <div class="verification-card">
+            <div class="card-header-banner">
+                <div>
+                    <span style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">E-Directory Putusan & Perkara</span>
+                    <h3 style="font-size: 16px; color: var(--primary-dark); font-weight: 700; margin-top: 2px;">No. 1901/Pdt.G/2026/PN.Surabaya</h3>
+                </div>
+                <div class="status-pill">
+                    ● SELESAI SIDANG
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="section-title">
+                    <span>📋</span> Detail Para Pihak Berperkara
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Klasifikasi Perkara</span>
+                        <span class="info-value">Cerai Gugat</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Tanggal Pendaftaran</span>
+                        <span class="info-value">10 Agustus 2026</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Pihak Penggugat (Istri)</span>
+                        <span class="info-value highlight-text">ERTAULI PINTU BATU</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Pihak Tergugat (Suami)</span>
+                        <span class="info-value highlight-text">RIDUAN SIDA BALOK</span>
+                    </div>
+                    <div class="info-item full-width">
+                        <span class="info-label">Majelis Hakim & Panitera</span>
+                        <span class="info-value">Hakim Ketua: Dr. H. Ahmad, S.H., M.H. | Panitera Pengganti: Siti Aminah, S.H.</span>
+                    </div>
+                </div>
+
+                <div class="section-title" style="margin-top: 40px;">
+                    <span>🔍</span> Jejak Digital & Verifikasi Keaslian Dokumen
+                </div>
+
+                <div class="verification-trail">
+                    <div class="trail-step">
+                        <div class="trail-dot"></div>
+                        <div class="trail-title">Registrasi Berkas Perkara E-Court</div>
+                        <div class="trail-time">10 Agustus 2026 - Pukul 08:30 WIB (Tervalidasi Sistem)</div>
+                    </div>
+                    <div class="trail-step">
+                        <div class="trail-dot"></div>
+                        <div class="trail-title">Validasi Pembayaran Panjar Biaya Perkara (e-Payment)</div>
+                        <div class="trail-time">10 Agustus 2026 - Pukul 09:15 WIB (Lunas / Kode Briva Valid)</div>
+                    </div>
+                    <div class="trail-step">
+                        <div class="trail-dot"></div>
+                        <div class="trail-title">Penetapan Majelis Hakim & Penjadwalan Sidang Pertama</div>
+                        <div class="trail-time">10 Agustus 2026 - Pukul 09:00 WIB (Sistem SIPP PA Bekasi)</div>
+                    </div>
+                </div>
+
+                <!-- Cap Digital & Stempel Pengadilan -->
+                <div class="digital-stamp">
+                    <div class="stamp-info">
+                        <h4>Dokumen Elektronik Tersertifikasi</h4>
+                        <p>ID Hash: 8f9a2b3c4d5e6f7-KDS-2026<br>Ditandatangani secara elektronik melalui Sertifikasi Mahkamah Agung RI.</p>
+                    </div>
+                    <div class="qr-placeholder">
+                        QR CODE
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Kepaniteraan Pengadilan Agama Kudus. Hak Cipta Dilindungi Undang-Undang.</p>
+        <p style="margin-top: 4px;">Informasi ini resmi tercatat pada server pusat Direktori Putusan Mahkamah Agung Republik Indonesia.</p>
+    </footer>
+
+</body>
+</html>
